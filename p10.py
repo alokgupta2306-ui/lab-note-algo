@@ -1,7 +1,3 @@
-import sys
-
-codes = {
-10: r'''
 import numpy as np
 import random
 
@@ -115,8 +111,3 @@ for node in best_path:
     print(nodes[node], end=" ")
 print()
 print("Path Length :", best_length)
-''',
-}
-
-n = int(sys.argv[1]) if len(sys.argv) > 1 else 10
-print(codes.get(n, "Available practicals: " + str(list(codes))))
