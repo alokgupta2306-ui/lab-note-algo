@@ -1,89 +1,31 @@
-import sys
-
-codes = {
-1: '''
-import numpy as np
-import matplotlib.pyplot as plt
-x = np.linspace(-5, 5, 100)
-y = np.linspace(-5, 5, 100)
-X, Y = np.meshgrid(x, y)
-Z = X**2 + Y**2
-plt.contour(X, Y, Z)
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.title("Contour Plot of Z = X^2 + Y^2")
-plt.show()
-''',
-
-2: '''
+3: '''
 import numpy as np
 
 def f(x):
     return (x - 2) ** 2
 
-# ---------- Fibonacci search ----------
-def fibonacci_search(a, b, n):
-    # Generate Fibonacci numbers
-    fib = [1, 1]
-    for i in range(2, n + 1):
-        fib.append(fib[i - 1] + fib[i - 2])
-    # Initial points
-    k = 1
-    x1 = a + (fib[n - 2] / fib[n]) * (b - a)
-    x2 = a + (fib[n - 1] / fib[n]) * (b - a)
-    f1 = f(x1)
-    f2 = f(x2)
-    while k < n - 1:
-        if f1 > f2:
-            a = x1
-            x1 = x2
-            f1 = f2
-            x2 = a + (fib[n - k - 1] / fib[n - k]) * (b - a)
-            f2 = f(x2)
-        else:
-            b = x2
-            x2 = x1
-            f2 = f1
-            x1 = a + (fib[n - k - 2] / fib[n - k]) * (b - a)
-            f1 = f(x1)
-        k = k + 1
-    minimum = (a + b) / 2
+def quadratic_fit_search(x1, x2, x3, tolerance=1e-6, max_iter=100):
+    pts = [x1, x2, x3]
+    x_old = None
+    for i in range(max_iter):
+        a, b, c = pts
+        fa, fb, fc = f(a), f(b), f(c)
+        # Minimum of the parabola through the three points
+        num = (b**2 - c**2) * fa + (c**2 - a**2) * fb + (a**2 - b**2) * fc
+        den = 2 * ((b - c) * fa + (c - a) * fb + (a - b) * fc)
+        if den == 0:
+            break
+        x_new = num / den
+        if x_old is not None and abs(x_new - x_old) < tolerance:
+            break
+        x_old = x_new
+        # Add the new point and drop the worst one
+        pts.append(x_new)
+        pts.remove(max(pts, key=f))
+    minimum = min(pts, key=f)
     print("Minimum point =", minimum)
     print("Minimum value =", f(minimum))
 
-# ---------- Golden section search ----------
-def golden_section_search(a, b, tolerance):
-    golden_ratio = (np.sqrt(5) - 1) / 2
-    x1 = b - golden_ratio * (b - a)
-    x2 = a + golden_ratio * (b - a)
-    f1 = f(x1)
-    f2 = f(x2)
-    while abs(b - a) > tolerance:
-        if f1 > f2:
-            a = x1
-            x1 = x2
-            f1 = f2
-            x2 = a + golden_ratio * (b - a)
-            f2 = f(x2)
-        else:
-            b = x2
-            x2 = x1
-            f2 = f1
-            x1 = b - golden_ratio * (b - a)
-            f1 = f(x1)
-    minimum = (a + b) / 2
-    print("Minimum point =", minimum)
-    print("Minimum value =", f(minimum))
-
-# Call the functions
-print("Fibonacci:")
-fibonacci_search(0, 5, 10)
-print("Golden section:")
-golden_section_search(0, 5, 0.001)
+# Call the function
+quadratic_fit_search(0, 1, 5)
 ''',
-
-# 3: ''' quadratic fit search goes here ''',
-}
-
-n = int(sys.argv[1]) if len(sys.argv) > 1 else 0
-print(codes.get(n, "Available practicals: " + str(list(codes))))
