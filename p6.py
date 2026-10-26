@@ -1,7 +1,3 @@
-import sys
-
-codes = {
-6: r'''
 import math
 
 # Function: f(x) = x^2
@@ -31,8 +27,3 @@ for i in range(10):
 
 print("\nFinal x =", round(x, 4))
 print("Minimum value =", round(x ** 2, 4))
-''',
-}
-
-n = int(sys.argv[1]) if len(sys.argv) > 1 else 6
-print(codes.get(n, "Available practicals: " + str(list(codes))))
