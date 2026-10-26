@@ -1,7 +1,3 @@
-import sys
-
-codes = {
-5: r'''
 import numpy as np
 from scipy.optimize import minimize
 
@@ -26,8 +22,3 @@ print("Optimal x =", round(result.x[0], 4))
 print("Maximum value =", round(f(result.x), 4))
 print("Number of iterations =", result.nit)
 print("Success =", result.success)
-''',
-}
-
-n = int(sys.argv[1]) if len(sys.argv) > 1 else 5
-print(codes.get(n, "Available practicals: " + str(list(codes))))
