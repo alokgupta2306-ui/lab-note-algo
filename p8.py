@@ -1,0 +1,64 @@
+import sys
+
+codes = {
+8: r'''
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.ensemble import RandomForestRegressor
+
+# Objective function
+def objective_function(x):
+    return x**2 + np.sin(x)
+
+# Generate sample points
+X = np.linspace(-5, 5, 30).reshape(-1, 1)
+
+# Calculate actual function values
+y = objective_function(X.ravel())
+
+# Create Random Forest surrogate model
+model = RandomForestRegressor(
+    n_estimators=100,
+    random_state=42
+)
+
+# Train the model
+model.fit(X, y)
+
+# Test points
+X_test = np.linspace(-5, 5, 200).reshape(-1, 1)
+
+# Predict using surrogate model
+y_pred = model.predict(X_test)
+
+# Display predictions
+print("Random Forest Surrogate Model")
+print("-----------------------------")
+
+test_values = [-4, -2, 0, 2, 4]
+
+for x in test_values:
+    prediction = model.predict([[x]])[0]
+    actual = objective_function(x)
+
+    print("x =", x)
+    print("Actual Value =", actual)
+    print("Predicted Value =", prediction)
+    print()
+
+# Plot actual function and surrogate model
+plt.scatter(X, y, label="Sample Data")
+plt.plot(X_test, objective_function(X_test.ravel()),
+         label="Actual Function")
+plt.plot(X_test, y_pred,
+         label="Random Forest Surrogate")
+plt.xlabel("X")
+plt.ylabel("Function Value")
+plt.title("Random Forest Surrogate Model")
+plt.legend()
+plt.show()
+''',
+}
+
+n = int(sys.argv[1]) if len(sys.argv) > 1 else 8
+print(codes.get(n, "Available practicals: " + str(list(codes))))
