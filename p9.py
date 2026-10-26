@@ -1,7 +1,3 @@
-import sys
-
-codes = {
-9: r'''
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.gaussian_process import GaussianProcessRegressor
@@ -87,8 +83,3 @@ plt.ylabel("Function Value")
 plt.title("Gaussian Process Surrogate Model")
 plt.legend()
 plt.show()
-''',
-}
-
-n = int(sys.argv[1]) if len(sys.argv) > 1 else 9
-print(codes.get(n, "Available practicals: " + str(list(codes))))
