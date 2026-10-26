@@ -1,7 +1,3 @@
-import sys
-
-codes = {
-4: r'''
 # Function
 def f(x):
     return x**2
@@ -31,8 +27,3 @@ for i in range(iterations):
           "f(x) =", round(f(x), 4))
 
 print("\nMinimum value occurs approximately at x =", round(x, 4))
-''',
-}
-
-n = int(sys.argv[1]) if len(sys.argv) > 1 else 4
-print(codes.get(n, "Available practicals: " + str(list(codes))))
