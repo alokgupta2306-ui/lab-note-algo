@@ -1,7 +1,3 @@
-import sys
-
-codes = {
-8: r'''
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestRegressor
@@ -57,8 +53,3 @@ plt.ylabel("Function Value")
 plt.title("Random Forest Surrogate Model")
 plt.legend()
 plt.show()
-''',
-}
-
-n = int(sys.argv[1]) if len(sys.argv) > 1 else 8
-print(codes.get(n, "Available practicals: " + str(list(codes))))
