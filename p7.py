@@ -1,7 +1,3 @@
-import sys
-
-codes = {
-7: r'''
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -48,8 +44,3 @@ plt.ylabel("Function Value")
 plt.title("Radial Basis Function Surrogate Model")
 plt.legend()
 plt.show()
-''',
-}
-
-n = int(sys.argv[1]) if len(sys.argv) > 1 else 7
-print(codes.get(n, "Available practicals: " + str(list(codes))))
