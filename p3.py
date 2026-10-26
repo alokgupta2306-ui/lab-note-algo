@@ -1,3 +1,6 @@
+import sys
+
+codes = {
 3: '''
 import numpy as np
 
@@ -29,3 +32,7 @@ def quadratic_fit_search(x1, x2, x3, tolerance=1e-6, max_iter=100):
 # Call the function
 quadratic_fit_search(0, 1, 5)
 ''',
+}
+
+n = int(sys.argv[1]) if len(sys.argv) > 1 else 3
+print(codes.get(n, "Available practicals: " + str(list(codes))))
