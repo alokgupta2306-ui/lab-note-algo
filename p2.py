@@ -4,12 +4,10 @@ def f(x):
     return (x - 2) ** 2
 
 def fibonacci_search(a, b, n):
-    # Generate Fibonacci numbers
     fib = [1, 1]
     for i in range(2, n + 1):
         fib.append(fib[i - 1] + fib[i - 2])
 
-    # Initial points
     k = 1
     x1 = a + (fib[n - 2] / fib[n]) * (b - a)
     x2 = a + (fib[n - 1] / fib[n]) * (b - a)
@@ -35,5 +33,4 @@ def fibonacci_search(a, b, n):
     print("Minimum point =", minimum)
     print("Minimum value =", f(minimum))
 
-# Call the function
 fibonacci_search(0, 5, 10)
