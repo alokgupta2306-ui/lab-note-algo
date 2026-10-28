@@ -1,26 +1,40 @@
-import numpy as np
-
+Code: 
 def f(x):
-    return (x - 2) ** 2
+    return (x - 2) ** 2
 
-def quadratic_fit_search(x1, x2, x3, tolerance=1e-6, max_iter=100):
-    pts = [x1, x2, x3]
-    x_old = None
-    for i in range(max_iter):
-        a, b, c = pts
-        fa, fb, fc = f(a), f(b), f(c)
-        num = (b**2 - c**2) * fa + (c**2 - a**2) * fb + (a**2 - b**2) * fc
-        den = 2 * ((b - c) * fa + (c - a) * fb + (a - b) * fc)
-        if den == 0:
-            break
-        x_new = num / den
-        if x_old is not None and abs(x_new - x_old) < tolerance:
-            break
-        x_old = x_new
-        pts.append(x_new)
-        pts.remove(max(pts, key=f))
-    minimum = min(pts, key=f)
-    print("Minimum point =", minimum)
-    print("Minimum value =", f(minimum))
+def quadratic_fit_search(x1, x2, x3, tolerance):
+    while abs(x3 - x1) > tolerance:
 
-quadratic_fit_search(0, 1, 5)
+        f1 = f(x1)
+        f2 = f(x2)
+        f3 = f(x3)
+
+        numerator = (x2 - x1) ** 2 * (f2 - f3) - \
+                    (x2 - x3) ** 2 * (f2 - f1)
+
+        denominator = 2 * ((x2 - x1) * (f2 - f3) -
+                           (x2 - x3) * (f2 - f1))
+
+        if denominator == 0:
+            break
+
+        x_new = x2 - numerator / denominator
+        f_new = f(x_new)
+
+        if x_new < x2:
+            if f_new < f2:
+                x3 = x2
+                x2 = x_new
+            else:
+                x1 = x_new
+        else:
+            if f_new < f2:
+                x1 = x2
+                x2 = x_new
+            else:
+                x3 = x_new
+
+    print("Minimum point =", x2)
+    print("Minimum value =", f(x2))
+
+quadratic_fit_search(0, 2.5, 5, 0.001)
