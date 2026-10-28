@@ -1,8 +1,5 @@
 import math
 
-# Function: f(x) = x^2
-# Gradient: f'(x) = 2x
-
 x = 10.0
 learning_rate = 1.0
 epsilon = 1e-8
@@ -12,13 +9,10 @@ print("AdaGrad Optimization")
 print("--------------------")
 
 for i in range(10):
-    # Calculate gradient
     gradient = 2 * x
 
-    # Accumulate squared gradient
     G = G + gradient ** 2
 
-    # Update x
     x = x - (learning_rate / (math.sqrt(G) + epsilon)) * gradient
 
     print("Iteration", i + 1,
