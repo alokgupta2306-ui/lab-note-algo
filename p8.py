@@ -2,32 +2,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestRegressor
 
-# Objective function
 def objective_function(x):
     return x**2 + np.sin(x)
 
-# Generate sample points
 X = np.linspace(-5, 5, 30).reshape(-1, 1)
 
-# Calculate actual function values
 y = objective_function(X.ravel())
 
-# Create Random Forest surrogate model
 model = RandomForestRegressor(
     n_estimators=100,
     random_state=42
 )
 
-# Train the model
 model.fit(X, y)
 
-# Test points
 X_test = np.linspace(-5, 5, 200).reshape(-1, 1)
 
-# Predict using surrogate model
 y_pred = model.predict(X_test)
 
-# Display predictions
 print("Random Forest Surrogate Model")
 print("-----------------------------")
 
@@ -42,7 +34,6 @@ for x in test_values:
     print("Predicted Value =", prediction)
     print()
 
-# Plot actual function and surrogate model
 plt.scatter(X, y, label="Sample Data")
 plt.plot(X_test, objective_function(X_test.ravel()),
          label="Actual Function")
